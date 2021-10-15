@@ -14,7 +14,7 @@ class CreateSubscriptionPaymentTable extends Migration
     public function up()
     {
         Schema::create('subscriptionPayment', function (Blueprint $table) {
-            $table->integer('idPayment');
+            $table->bigIncrements('idPayment'); //idPago
             $table->string('email',50)->default('text');
             $table->integer('idSuscription');
 

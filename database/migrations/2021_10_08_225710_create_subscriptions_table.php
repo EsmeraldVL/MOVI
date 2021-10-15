@@ -14,8 +14,8 @@ class CreateSubscriptionsTable extends Migration
     public function up()
     {
         Schema::create('subscriptions', function (Blueprint $table) {
-            $table->id();
-            
+            $table->bigIncrements('idSuscriptions');
+
             $table->string('kind',100)->default('text');
             $table->string('detail',100)->efault('text');
             $table->float('price');

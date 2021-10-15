@@ -14,7 +14,7 @@ class CreateCurrencyTable extends Migration
     public function up()
     {
         Schema::create('currency', function (Blueprint $table) {
-            $table->id();//llave 
+            $table->bigIncrements('idCurrenccy');//llave 
 
             $table->float('quetzalValue');
         });

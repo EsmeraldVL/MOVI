@@ -14,7 +14,7 @@ class CreateBooksUsersTable extends Migration
     public function up()
     {
         Schema::create('books_users', function (Blueprint $table) {
-            $table->integer('idLibro'); //id del libro
+            $table->bigIncrements('idLibro'); //id del libro
             $table->string('userEmail',50)->default('text');
 
             $table->string('author',100)->efault('text');

@@ -14,7 +14,7 @@ class CreateInvoiceTable extends Migration
     public function up()
     {
         Schema::create('invoice', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('idInvoice');
             $table->date('dateF');
 
             $table->string('email',50)->default('text');
