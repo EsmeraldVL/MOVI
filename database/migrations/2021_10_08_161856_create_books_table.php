@@ -15,14 +15,13 @@ class CreateBooksTable extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->bigIncrements('idBook');
+            $table->string('Editorial',50)->default('text');
+
             $table->string('bookName',100)->default('text');
-            $table->string('author',100)->efault('text');
-            $table->string('publication_Date',100)->default('text');
-            $table->string('user_email',50)->default('text');
+            $table->string('author',100)->default('text');
+            $table->date('publicationDate');
             $table->string('synopsis',100)->default('text');
             $table->binary('image');
-            $table->binary('PDF');
-            $table->float('price');
         });
     }
 

@@ -15,7 +15,11 @@ class CreateSubscriptionsTable extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            
+            $table->string('kind',100)->default('text');
+            $table->string('detail',100)->efault('text');
+            $table->float('price');
+            $table->float('initialMovies');
         });
     }
 

@@ -15,7 +15,11 @@ class CreateInvoiceTable extends Migration
     {
         Schema::create('invoice', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->date('dateF');
+
+            $table->string('email',50)->default('text');
+            $table->integer('nit');
+            $table->float('paymentType');//tipo de pago
         });
     }
 

@@ -13,9 +13,14 @@ class CreateSubscriptionPaymentTable extends Migration
      */
     public function up()
     {
-        Schema::create('subscription_payment', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('subscriptionPayment', function (Blueprint $table) {
+            $table->integer('idPayment');
+            $table->string('email',50)->default('text');
+            $table->integer('idSuscription');
+
+            $table->date('paymentDate');
+            $table->float('amount');
+
         });
     }
 

@@ -14,8 +14,8 @@ class CreateUsersSubscriptionsTable extends Migration
     public function up()
     {
         Schema::create('users_subscriptions', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->integer('idUserSuscription'); //id user suscription
+            $table->string('email',50)->default('text'); // ambas son llaves
         });
     }
 
