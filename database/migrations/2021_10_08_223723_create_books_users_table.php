@@ -15,7 +15,7 @@ class CreateBooksUsersTable extends Migration
     {
         Schema::create('books_users', function (Blueprint $table) {
             $table->bigIncrements('idLibro'); //id del libro
-            $table->string('userEmail',50)->default('text');
+            $table->string('userEmail',50);
 
             $table->string('author',100)->efault('text');
             $table->string('bookName',100)->default('text');
@@ -24,8 +24,8 @@ class CreateBooksUsersTable extends Migration
             $table->binary('image');
             $table->binary('PDF');
             $table->float('price');
-
-
+            $table->foreign('userEmail')->references('email')->on('users');
+            
         });
     }
 

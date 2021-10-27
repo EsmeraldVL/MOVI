@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers;
 
+use App\Models\Book_Category;
 use App\Models\Libreria\Book;
-use App\Models\Discount;
-use App\Models\Libreria\Category;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-class DiscountController extends Controller
+class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +14,6 @@ class DiscountController extends Controller
      */
     public function index()
     {
-        
-        return "hola funcion listado";
         //
     }
 
@@ -27,12 +22,35 @@ class DiscountController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $bookId= $request->input('idLibro');
+        $book=Book::find($bookId);
+        $categoria=Book_Category::select('categoria')
+        ->whereColumn([
+            ['idArticulo', '=',$bookId ],
+            ['isBook', '=', '1'],
+        ])->get();
+        
+        if ( is_null($categoria) ) {
+            $categoria= Book_Category::select('categoria')
+            ->whereColumn([
+                ['idArticulo', '=',$bookId ],
+                ['isBook', '=', '0'],
+            ])
+            ->get();
+        }
+        
+        $discountRate=Book_Category::select('discountRate')
+        ->where('idCategory', '=',$categoria )
+        ->get();
 
-        $categorias = Category::orderby('id', 'asc')->get();
-        return view('admin/Discounts/create')->with('categorias',$categorias);
-        //
+        if ( is_null($categoria) ) {
+            $discountRate=0;
+        }
+        return view('Payment/create')
+            ->with('descuento',$discountRate)
+            ->with('libro',$book);
     }
 
     /**
@@ -43,18 +61,7 @@ class DiscountController extends Controller
      */
     public function store(Request $request)
     {
-        
-        //return $request;
-        $descuento = new Discount();
-        $descuento->discountRate=  $request->input('porcentaje');
-        $descuento->idCategory= $request->input('category');
-        $descuento->startDate= $request->input('fechaInicio');
-        $descuento->finishDate= $request->input('fechaFinal');
-
-        $descuento->save();
-        $request->session()->flash('alert-success', 'Nuevo Descuento Agregado!');
-        $books= Book::latest()->take(4)->get();
-        return view('home') ->with('libros', $books);
+        //
     }
 
     /**

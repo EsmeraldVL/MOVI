@@ -14,12 +14,14 @@ class CreateShoppingCartDetailTable extends Migration
     public function up()
     {
         Schema::create('shopping_cart_detail', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->bigInteger('idCart');
             $table->boolean('isBook');
             $table->bigInteger('idProduct');
             $table->integer('quantity');
             $table->text('detail');
-            $table->foreign('idCart')->references('id')->on('shopping_cart');
+            $table->float('unitPrice');
+            //$table->foreign('idCart')->references('id')->on('shopping_cart');
             $table->timestamps();
         });
     }

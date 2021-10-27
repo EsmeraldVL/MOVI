@@ -15,6 +15,7 @@ class CreateBuyMovisTable extends Migration
     {
         Schema::create('buy_movis', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->date('dateF');
             $table->float('amount');
             $table->string('email');
             $table->bigInteger('idPaymentType');

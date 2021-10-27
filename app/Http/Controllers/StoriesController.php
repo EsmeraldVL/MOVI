@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\admin;
-
-use App\Models\Libreria\Book;
-use App\Models\Discount;
-use App\Models\Libreria\Category;
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers;
+use App\Models\Libreria\user_history;
 use Illuminate\Http\Request;
+use App\Models\Libreria\Category;
 
-class DiscountController extends Controller
+
+class StoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +15,11 @@ class DiscountController extends Controller
      */
     public function index()
     {
-        
-        return "hola funcion listado";
-        //
+        $categorias = Category::orderby('id', 'asc')->get();
+        $stories = user_history::orderBy('id','ASC')->paginate(6);
+        //$libros = Libro::orderBy('id','ASC')->paginate(5);
+       // return view('library.Libros.index')->with('libros', $libros);
+       return view('Library.Index')->with('libros',$stories)->with('categorias',$categorias);
     }
 
     /**
@@ -29,32 +29,32 @@ class DiscountController extends Controller
      */
     public function create()
     {
-
         $categorias = Category::orderby('id', 'asc')->get();
-        return view('admin/Discounts/create')->with('categorias',$categorias);
-        //
+        return view('Historias/create')->with('categorias',$categorias);
     }
 
     /**
      * Store a newly created resource in storage.
-     *
+     *'email','title', 'cover_image','text','price','dateP'
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        
-        //return $request;
-        $descuento = new Discount();
-        $descuento->discountRate=  $request->input('porcentaje');
-        $descuento->idCategory= $request->input('category');
-        $descuento->startDate= $request->input('fechaInicio');
-        $descuento->finishDate= $request->input('fechaFinal');
-
-        $descuento->save();
-        $request->session()->flash('alert-success', 'Nuevo Descuento Agregado!');
-        $books= Book::latest()->take(4)->get();
-        return view('home') ->with('libros', $books);
+        $filePath='';
+        if($request->hasFile('image')) {
+            $file = $request->file('image');
+            $nombre = time().$file->getClientOriginalName();
+            $file->move(public_path().'/movi/imagesBooks/', $nombre);
+            $filePath=$nombre;
+        }
+        $historia = new user_history();
+        $historia->email=  $request->input('email');
+        $historia->title=  $request->input('title');
+        $historia->cover_image= $request->input('cover_image');
+        $historia->text= $request->input('text');
+        $historia->price= $request->input('price');
+        $historia->image= $filePath;
     }
 
     /**
@@ -65,7 +65,8 @@ class DiscountController extends Controller
      */
     public function show($id)
     {
-        //
+       
+        
     }
 
     /**

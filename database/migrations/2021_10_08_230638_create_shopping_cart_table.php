@@ -14,9 +14,10 @@ class CreateShoppingCartTable extends Migration
     public function up()
     {
         Schema::create('shopping_cart', function (Blueprint $table) {
-            $table->bigIncrements('idCarrito');
-            $table->string('email');
-            $table->foreign('email')->references('id')->on('users');
+            $table->bigIncrements('id');
+            $table->string('email',50);
+            $table->date('date');
+            $table->foreign('email')->references('email')->on('users');
             $table->timestamps();
         });
     }

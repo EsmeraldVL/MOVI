@@ -14,12 +14,11 @@ class CreateSubscriptionsTable extends Migration
     public function up()
     {
         Schema::create('subscriptions', function (Blueprint $table) {
-            $table->bigIncrements('idSuscriptions');
-
+            $table->bigIncrements('id');
             $table->string('kind',100)->default('text');
             $table->string('detail',100)->efault('text');
             $table->float('price');
-            $table->float('initialMovies');
+            $table->float('initial_movis');
         });
     }
 

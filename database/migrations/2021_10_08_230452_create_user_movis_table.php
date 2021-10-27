@@ -14,9 +14,9 @@ class CreateUserMovisTable extends Migration
     public function up()
     {
         Schema::create('user_movis', function (Blueprint $table) {
-            $table->bigInteger('email');
+            $table->string('email',50);
             $table->float('amount');
-            $table->foreign('email')->references('id')->on('users');
+            $table->foreign('email')->references('email')->on('users');
             $table->timestamps();
         });
     }

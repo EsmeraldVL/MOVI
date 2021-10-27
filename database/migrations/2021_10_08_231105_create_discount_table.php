@@ -13,15 +13,7 @@ class CreateDiscountTable extends Migration
      */
     public function up()
     {
-        Schema::create('discount', function (Blueprint $table) {
-            $table->bigIncrements('idOffer');
-            $table->float('discountRate');
-            $table->bigInteger('idCategory');
-            $table->date('startDate');
-            $table->date('finishDate');
-            $table->foreign('idCategory')->references('id')->on('category');
-            $table->timestamps();
-        });
+        
     }
 
     /**

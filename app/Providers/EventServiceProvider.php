@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+
+use App\Models\Shopping_Cart;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -27,6 +30,15 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer('*', function($view)
+        {
+            $session_name = 'shopping_cart_id';
+            $Shopping_Cart_id = Session::get($session_name);
+            $shopping_cart= Shopping_Cart::FindOrCreateBySessionId($Shopping_Cart_id);
+            Session::put($session_name, $shopping_cart->id);
+            Session::put("HOLA", "HOLA2");
+            
+            $view->with('shopping_cart', $shopping_cart)->with("hola", "jojo");
+        });
     }
 }

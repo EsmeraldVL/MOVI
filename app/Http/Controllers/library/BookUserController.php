@@ -1,14 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers;
 
-use App\Models\Libreria\Book;
-use App\Models\Discount;
-use App\Models\Libreria\Category;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class DiscountController extends Controller
+class BookUserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +13,6 @@ class DiscountController extends Controller
      */
     public function index()
     {
-        
-        return "hola funcion listado";
         //
     }
 
@@ -29,9 +23,6 @@ class DiscountController extends Controller
      */
     public function create()
     {
-
-        $categorias = Category::orderby('id', 'asc')->get();
-        return view('admin/Discounts/create')->with('categorias',$categorias);
         //
     }
 
@@ -43,18 +34,7 @@ class DiscountController extends Controller
      */
     public function store(Request $request)
     {
-        
-        //return $request;
-        $descuento = new Discount();
-        $descuento->discountRate=  $request->input('porcentaje');
-        $descuento->idCategory= $request->input('category');
-        $descuento->startDate= $request->input('fechaInicio');
-        $descuento->finishDate= $request->input('fechaFinal');
-
-        $descuento->save();
-        $request->session()->flash('alert-success', 'Nuevo Descuento Agregado!');
-        $books= Book::latest()->take(4)->get();
-        return view('home') ->with('libros', $books);
+        //
     }
 
     /**

@@ -14,12 +14,15 @@ class CreateInvoiceTable extends Migration
     public function up()
     {
         Schema::create('invoice', function (Blueprint $table) {
-            $table->bigIncrements('idInvoice');
+            $table->bigIncrements('id');
             $table->date('dateF');
-
-            $table->string('email',50)->default('text');
+            $table->string('email',50);
             $table->integer('nit');
             $table->float('paymentType');//tipo de pago
+            $table->timestamps();
+            $table->foreign('email')->references('email')->on('users');
+            $table->foreign('paymentType')->references('id')->on('payment_type');
+            
         });
     }
 

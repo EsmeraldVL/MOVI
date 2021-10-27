@@ -23,10 +23,11 @@ class CreatePurchaseTable extends Migration
             $table->float('subtotal');
             $table->bigInteger('idOffer');
             $table->float('total');
-            $table->foreign('idFactura')->references('id')->on('facturas');
+            $table->timestamps();
+            $table->foreign('idFactura')->references('id')->on('invoice');
             //idLibro historia
             $table->foreign('idOffer')->references('id')->on('discount');
-            $table->timestamps();
+            
         });
     }
 
