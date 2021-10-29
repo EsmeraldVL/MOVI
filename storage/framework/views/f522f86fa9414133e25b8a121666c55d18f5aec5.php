@@ -50,44 +50,51 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-                   <li class="nav-item dropdown">
+          <?php if(session()->get('idSubscripcion')>=1): ?>
+          <li class="nav-item dropdown">
             <div class="dropdown">
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">Mi Cuenta</a>
                 <div class="dropdown-menu">
                   <a class="dropdown-item" href="#">Estado de Cuenta</a>
-                  <a class="dropdown-item" href="#">Reporte de compras else here</a>
+                  <a class="dropdown-item" href="#">Reporte de compras</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Cerrar Sesion link</a>
+                  <a class="dropdown-item" href="<?php echo e(url('Subscripcion/Subscription')); ?>">Nueva Subscripcion</a>
+                  <a class="dropdown-item" href="<?php echo e(url('Pagos/pagar')); ?>">Comprar Movis</a>
                 </div>
           </li>
+          <?php endif; ?>
+          
           <li class="nav-item dropdown">
             <div class="dropdown">
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Biblioteca</a>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="<?php echo e(url('/library/Libros')); ?>">Todos los libros</a>
+                  <a class="dropdown-item" href="<?php echo e(url('/library/Libros')); ?>">Todos los libros </a>
                   <a class="dropdown-item" href="<?php echo e(url('/library/Libros')); ?>">Promociones en Movi</a>
-                  <a class="dropdown-item" href="#">Historias</a>
+                  <a class="dropdown-item" href="<?php echo e(url('/library/Historias  ')); ?>">Historias</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#">Nuestros Escritores</a>
                 </div>
           </li>
+          <?php if(session()->get('idSubscripcion')>2): ?>
           
-          <li class="nav-item dropdown">
-            <div class="dropdown">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Publicaciones</a>
-                <div class="dropdown-menu">
-                  <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('update', Model::class)): ?><?php endif; ?>
-                  <a class="dropdown-item" href="<?php echo e(url('/library/Libros/create')); ?>">Publicar Libro</a>
-                  <a class="dropdown-item" href="<?php echo e(url('/library/Historias/create')); ?>">Publicar Historia</a>
-                  <a class="dropdown-item" href="#">Historias </a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Mis Publicaciones</a>
-                </div>
-          </li>
-
+            <li class="nav-item dropdown">
+              <div class="dropdown">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Publicaciones</a>
+                  <div class="dropdown-menu">
+                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('update', Model::class)): ?><?php endif; ?>
+                    <a class="dropdown-item" href="<?php echo e(url('/library/Libros/create')); ?>">Publicar Libro </a>
+                    <a class="dropdown-item" href="<?php echo e(url('/library/Historias/create')); ?>">Publicar Historia</a>
+                    <a class="dropdown-item" href="#">Historias </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Mis Publicaciones</a>
+                  </div>
+            </li>
+          <?php endif; ?>
+          
+          <?php if(session()->get('idSubscripcion')>2): ?>
           <li class="nav-item dropdown">
             <div class="dropdown">
               <li class="nav-item dropdown">
@@ -96,16 +103,11 @@
                   <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('update', Model::class)): ?><?php endif; ?>
                   <a class="dropdown-item" href="<?php echo e(url('/library/Libros/create')); ?>">Ver Descuentos</a>
                   <a class="dropdown-item" href="<?php echo e(url('/administracion/Discounts/create')); ?>">Crear Descuentos</a>
-                  <a class="dropdown-item" href="#">Historias </a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="#">Mis Publicaciones</a>
                 </div>
           </li>
-          
-          
-          <li class="nav-item">
-            <a class="nav-link" href="<?php echo e(url('/home')); ?>">Ver libros</a>
-          </li>
+          <?php endif; ?>
           <!-- Authentication Links -->
           <?php if(auth()->guard()->guest()): ?>
               <?php if(Route::has('login')): ?>
@@ -170,13 +172,14 @@
     <div class="container bottom_border">
       <div class="row">
         <div class=" col-sm-4 col-md col-sm-4  col-12 col">
-          <h5 class="headin5_amrc col_white_amrc pt2">Find us</h5>
+          <h5 class="headin5_amrc col_white_amrc pt2">Contactanos</h5>
           <!--headin5_amrc-->
-          <p class="mb10">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-            been the industrys standard dummy text ever since the 1500s</p>
-          <p><i class="fa fa-location-arrow"></i> 9878/25 sec 9 rohini 35 </p>
-          <p><i class="fa fa-phone"></i> +91-9999878398 </p>
-          <p><i class="fa fa fa-envelope"></i> info@example.com </p>
+          <p class="mb10">Somos una libreria dedicada a los escritores ofreciendoles un lugar para publicar 
+            sus creaciones y poder darse a conocer en el mundo de la literatura.
+          </p>
+          <p><i class="fa fa-location-arrow"></i> Quetzaltenango, Quetzaltenango Guatemala </p>
+          <p><i class="fa fa-phone"></i> +502-34546765 </p>
+          <p><i class="fa fa fa-envelope"></i> info@movi.com </p>
 
 
         </div>
@@ -186,30 +189,35 @@
           <h5 class="headin5_amrc col_white_amrc pt2">Quick links</h5>
           <!--headin5_amrc-->
           <ul class="footer_ul_amrc">
-            <li><a href="http://webenlance.com">Image Rectoucing</a></li>
-            <li><a href="http://webenlance.com">Clipping Path</a></li>
-            <li><a href="http://webenlance.com">Hollow Man Montage</a></li>
-            <li><a href="http://webenlance.com">Ebay & Amazon</a></li>
-            <li><a href="http://webenlance.com">Hair Masking/Clipping</a></li>
-            <li><a href="http://webenlance.com">Image Cropping</a></li>
+            <li><a href="<?php echo e(url('/library/Libros')); ?>">Todos Los Libros</a></li>
+            <li><a href="#">Historias</a></li>
+            <?php if(auth()->guard()->guest()): ?>
+              <?php if(Route::has('login')): ?>
+                  <li >
+                      <a href="<?php echo e(route('login')); ?>"><?php echo e(__('Iniciar Sesion')); ?></a>
+                  </li>
+              <?php endif; ?>
+
+              <?php if(Route::has('register')): ?>
+                  <li >
+                      <a href="<?php echo e(route('register')); ?>"><?php echo e(__('Registrate en Movi')); ?></a>
+                  </li>
+              <?php endif; ?>
+              <?php else: ?>
+                <li >
+      
+                    
+                        <a href="<?php echo e(url('administracion/Users/'.Auth::user()->email)); ?>">Mi Perfil</a>
+                      
+                </li>
+              <?php endif; ?>
+            <li><a href="#">Mi Carrito</a></li>
+            <li><a href="#">Libros Ofertados</a></li>
           </ul>
           <!--footer_ul_amrc ends here-->
         </div>
 
 
-        <div class=" col-sm-4 col-md  col-6 col">
-          <h5 class="headin5_amrc col_white_amrc pt2">Quick links</h5>
-          <!--headin5_amrc-->
-          <ul class="footer_ul_amrc">
-            <li><a href="http://webenlance.com">Remove Background</a></li>
-            <li><a href="http://webenlance.com">Shadows & Mirror Reflection</a></li>
-            <li><a href="http://webenlance.com">Logo Design</a></li>
-            <li><a href="http://webenlance.com">Vectorization</a></li>
-            <li><a href="http://webenlance.com">Hair Masking/Clipping</a></li>
-            <li><a href="http://webenlance.com">Image Cropping</a></li>
-          </ul>
-          <!--footer_ul_amrc ends here-->
-        </div>
 
 
         <div class=" col-sm-4 col-md  col-12 col">
@@ -218,13 +226,13 @@
 
           <ul class="footer_ul2_amrc">
             <li><a href="#"><i class="fab fa-twitter fleft padding-right"></i> </a>
-              <p>Lorem Ipsum is simply dummy text of the printing...<a href="#">https://www.lipsum.com/</a></p>
+              <p>Twitter  <a href="#">https://www.lipsum.com/</a></p>
             </li>
-            <li><a href="#"><i class="fab fa-twitter fleft padding-right"></i> </a>
-              <p>Lorem Ipsum is simply dummy text of the printing...<a href="#">https://www.lipsum.com/</a></p>
+            <li><a href="#"><i class="fab fa-facebook fleft padding-right"></i> </a>
+              <p>facebook <a href="#">https://www.lipsum.com/</a></p>
             </li>
-            <li><a href="#"><i class="fab fa-twitter fleft padding-right"></i> </a>
-              <p>Lorem Ipsum is simply dummy text of the printing...<a href="#">https://www.lipsum.com/</a></p>
+            <li><a href="#"><i class="fab fa-instagram fleft padding-right"></i> </a>
+              <p>Instagram  <a href="#">https://www.lipsum.com/</a></p>
             </li>
           </ul>
           <!--footer_ul2_amrc ends here-->
@@ -244,30 +252,6 @@
       </ul>
       <!--foote_bottom_ul_amrc ends here-->
       <p class="text-center">Copyright @2021  Analisis y Diseño de Sisetemas</p>
-
-      <div class="footer-social-link">
-        <h3>Suiguenos en redes Sociales</h3>
-        <ul>
-          <li>
-            <a href="#">
-
-              <i class="fa fa-facebook"><img src="<?php echo e(asset('imagenes/social/facebook.png')); ?>" alt="social icon"></i>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-twitter"><img src="<?php echo e(asset('imagenes/social/gorjeo.png')); ?>" alt="social icon"></i>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-instagram"><img src="<?php echo e(asset('imagenes/social/instagram.png')); ?>" alt="social icon"></i>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <!--social_footer_ul ends here-->
-    </div>
   </footer>
 
   <script src="<?php echo e(asset('js/header.js')); ?>"></script>

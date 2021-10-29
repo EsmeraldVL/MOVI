@@ -2,11 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book_Category;
+use App\Models\Discount as ModelsDiscount;
+use App\Models\discount;
+use App\Models\User;
+use App\Models\User_Movis;
 use App\Models\Libreria\Book;
+use App\Models\Libreria\Category;
 use Illuminate\Http\Request;
+
+
+
 class PaymentController extends Controller
 {
+
+    public function __construct(){
+       $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,33 +36,45 @@ class PaymentController extends Controller
      */
     public function create(Request $request)
     {
-        $bookId= $request->input('idLibro');
-        $book=Book::find($bookId);
-        $categoria=Book_Category::select('categoria')
-        ->whereColumn([
-            ['idArticulo', '=',$bookId ],
-            ['isBook', '=', '1'],
-        ])->get();
-        
-        if ( is_null($categoria) ) {
-            $categoria= Book_Category::select('categoria')
-            ->whereColumn([
-                ['idArticulo', '=',$bookId ],
-                ['isBook', '=', '0'],
-            ])
-            ->get();
-        }
-        
-        $discountRate=Book_Category::select('discountRate')
-        ->where('idCategory', '=',$categoria )
-        ->get();
+        $email=session()->get('email');
+        $user=User::find($email);
+        $movis= User_Movis::select('amount')
+        ->where('email', '=', $email)
+        ->first();
+        $movisUser=$movis->amount;
+        if ($request->input('isLibro')) {
 
-        if ( is_null($categoria) ) {
-            $discountRate=0;
+            $bookId = $request->input('Libro');
+            $categoriaId = $request->input('category');
+            $book=Book::find($bookId);
+            $categoria=Category::find($categoriaId);
+            $discountRate = ModelsDiscount::select('discountRate')
+                ->where('idCategory', '=', $categoria->id)
+                ->first();
+            if (is_null($categoria)) {
+                $discountRate = 0;
+            }
+            $bookPrice= $book->price;
+            $totalDesc= discount::CalcularDescuento($bookPrice,$discountRate);
+            $priceMovis=Book::calcularPrecioMovis($bookPrice,1.7);
+            $priceMovisF=discount::CalcularDescuento($priceMovis,20);
+   
+            return view('Payment/create')
+                ->with('user',$user)
+                ->with('libro', $book)
+                ->with('categoria',$categoria)
+                ->with('descuento', $discountRate)
+                ->with('movisUser',$movis->amount)
+
+                ->with('totalQ',$book->price)
+                ->with('totalDQ',$totalDesc)
+                ->with('totalMovis',$priceMovis)
+                ->with('totalModisDesc',$priceMovisF)
+                ->with('movisUser',$movisUser);
+        } else if (!$request->input('isLibro')) {
+            # code...
+        } else {
         }
-        return view('Payment/create')
-            ->with('descuento',$discountRate)
-            ->with('libro',$book);
     }
 
     /**

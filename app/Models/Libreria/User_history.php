@@ -5,12 +5,12 @@ namespace App\Models\Libreria;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class user_history extends Model
+class User_history extends Model
 {
     use HasFactory;
 
     use HasFactory;
-    protected  $table = "user-stories";
+    protected  $table = "userStories";
 
     protected $filiable = ['email','title', 'cover_image','text','price','dateP'];
 

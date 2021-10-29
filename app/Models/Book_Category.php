@@ -10,7 +10,7 @@ class Book_Category extends Model
     use HasFactory;
     protected  $table = "book_category";
 
-    protected $filiable = ['idCategory','idArticulo', 'isBook'];
+    protected $filiable = ['idCategoria','idArticulo', 'isBook'];
 
     public function category(){
         return $this->belongsTo('App\Category');
@@ -23,4 +23,5 @@ class Book_Category extends Model
             return $this->belongsTo('App\Libreria\User_history');
         }
     }
+    
 }

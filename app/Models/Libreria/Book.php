@@ -10,7 +10,7 @@ class Book extends Model
     use HasFactory;
     protected  $table = "books";
 
-    protected $filiable = ['bookName','author', 'publication_date','editorial', 'synopsis', 'image', 'PDF','price'];
+    protected $filiable = ['bookName','author', 'publication_date','editorial', 'synopsis', 'image', 'PDF','price','isBasicSubscription'];
 
     public function hasProfilePicture(): bool {
         return !is_null($this->attributes['image']) 
@@ -35,6 +35,11 @@ class Book extends Model
 
     public function scopeAutor($query,$autor){
         return $query->where('author', 'like', "$autor");
+    }
+
+    public static function calcularPrecioMovis($total, $cambio){
+        $precioMovis=$total*$cambio;
+        return $precioMovis;
     }
 
 }

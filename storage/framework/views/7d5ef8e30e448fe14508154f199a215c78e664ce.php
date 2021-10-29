@@ -59,6 +59,7 @@
                 
                 <div class="books" style="padding-top: 8rem; padding-left:5%;padding-right:5%" >
                     <?php $i=0?>
+                    <?php if($libros ?? ''): ?>
                     <?php $__currentLoopData = $libros; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $libro): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <?php $i=$i+1?>
                     <div class="single-book">
@@ -78,13 +79,15 @@
                         <div class="books" style="padding-left: 10%;padding-right: 10%">
                     <?php endif; ?>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <?php endif; ?>
+                    
                     
                 </div>   
                 <nav >
                     <?php echo $__env->make('pagination.default', ['paginator' => $libros], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                 </nav>   
             </div> 
-            
+        </br>
         </section>
        
 </section>

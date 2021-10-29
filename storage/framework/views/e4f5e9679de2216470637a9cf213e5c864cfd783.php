@@ -20,22 +20,33 @@
                             <h1 class="headline mb-3">
                                 Titulo:         <strong><?php echo e($Book->bookName); ?></strong> 
                             </h1><!--//headline-->
-                            <h3>Autor:          <strong><?php echo e($Book->author); ?></strong></h3>
+                            <h3>
+                                Autor:          <strong><?php echo e($Book->author); ?></strong>
+                            </h3>
+                            <h4>
+                                Categoria:      <strong><?php echo e($categoria->type); ?></strong>
+                            </h4>
+                            
                             
                             <div class="subheadline mb-4" style="text-align: justify; font-size: 1rem">
                                 <?php echo e($Book->synopsis); ?> 
                             </div><!--//subheading-->
                             
                             <div class="cta-holder row gx-md-3 gy-3 gy-md-0">
-                                <form method="post"  action="<?php echo e(asset('library/pagar')); ?>">
+                                <form method="post"  action="<?php echo e(asset('library/pagar')); ?>" class="col-auto">
+                                    <?php echo csrf_field(); ?>
                                     <div class="col-12 col-md-auto">
-                                        <input name="idLibro" value="<?php echo e($Book->id); ?>"/>
-                                        <a class="btn btn-primary w-100" href="<?php echo e(url('/library/Pagos/create')); ?>">Comprar Ahora</a>
+                                        <input name="Libro" value="<?php echo e($Book->id); ?>" hidden/>
+                                        <input name="isLibro" value="true" hidden/>
+                                        <input name="category" value="<?php echo e($categoria->id); ?>" hidden/>
+                                        <button type="s" class="btn btn-primary w-100">Comprar Ahora</button>
                                     </div>
                                 </form>
-                                <div class="col-12 col-md-auto">
-                                    <a class="btn btn-secondary scrollto w-100 carritoA" href="#benefits-section">Agregar al carrito</a>
-                                </div>
+                                <form  method="post"  action="<?php echo e(asset('library/pagar')); ?>" class="col-auto">
+                                    <div class="col-12 col-md-auto">
+                                        <button type="s" class="btn btn-secondary scrollto w-100 carritoA"type="submmit">Agregar al carrito</button>
+                                    </div>
+                                </form>
                             </div><!--//cta-holder-->
                             
                             <div class="hero-quotes mt-5">

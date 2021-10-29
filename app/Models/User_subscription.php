@@ -12,10 +12,7 @@ class User_subscription extends Model
     protected  $table = "users_subscriptions";
 
     protected $filiable = ['idSubscription','email'];
-
-
-    use HasFactory;
-
+    
     public function subscription(){
         return $this->belongsTo('App\Subscription');
     }

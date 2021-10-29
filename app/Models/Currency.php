@@ -10,7 +10,7 @@ class Currency extends Model
     use HasFactory;
 
     protected  $table = "currency";
-    protected $filiable = ['quetzalValue'];
+    protected $filiable = ['moviValue'];
 
     use HasFactory;    
 }

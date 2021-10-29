@@ -20,4 +20,9 @@ class discount extends Model
     public function purchase(){
         return $this->hasMany('App\Purchase');
     }
+
+    public static function  CalcularDescuento($total, $descuento){
+        $desc= ($total*$descuento)/100;
+        return $total - $desc;
+    }
 }

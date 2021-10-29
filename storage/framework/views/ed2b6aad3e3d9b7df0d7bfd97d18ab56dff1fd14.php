@@ -69,6 +69,10 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class=" alert alert-info form-check ">
+                                    <input name="isBasic" type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">ES PREMIUM</label>
+                                </div>
                                 <div class="login-container-form-btn">
                                     <div class="bb-login-form-btn">
                                         <div class="bb-form-bgbtn"></div> <button type="s" class="bb-form-btn"> Publicar Libro </button>

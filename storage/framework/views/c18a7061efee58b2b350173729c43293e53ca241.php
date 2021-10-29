@@ -16,7 +16,7 @@
     <div class="row mb-4">
         <div class="col-lg-8 mx-auto text-center">
             <h1 class="display-6">Metodo de Pago</h1>
-            <h1 class="display-6">Total a Pagar <?php echo e($total); ?></h1>
+            <h1 class="display-6">Total a Pagar <?php echo e($totalDQ); ?></h1>
         </div>
     </div> <!-- End -->
     <div class="row">
@@ -27,7 +27,7 @@
                         <!-- Credit card form tabs -->
                         <ul role="tablist" class="nav bg-light nav-pills rounded nav-fill mb-3">
                             <li class="nav-item"> <a data-toggle="pill" href="#credit-card" class="nav-link active "> <i class="fas fa-credit-card mr-2"></i> Tarjeta de Credito </a> </li>
-                            <li class="nav-item"> <a data-toggle="pill" href="#paypal" class="nav-link "> <i class="fab fa-paypal mr-2"></i> Movis </a> </li>
+                            <li class="nav-item"> <a data-toggle="pill" href="#paypal" class="nav-link "> <i class="fab fa-maxcdn mr-2"></i> Movis </a> </li>
                             <li class="nav-item"> <a data-toggle="pill" href="#net-banking" class="nav-link "> <i class="fas fa-mobile-alt mr-2"></i> Comprar Movis </a> </li>
                         </ul>
                     </div> <!-- End -->
@@ -36,9 +36,10 @@
                         <!-- credit card info-->
                         <div id="credit-card" class="tab-pane fade show active pt-3">
                             <form role="form" onsubmit="event.preventDefault()">
+                                <input name="tipo"  value="movis" hidden/>
                                 <div class="form-group"> <label for="username">
                                         <h6>Propietario Tarjeta</h6>
-                                    </label> <input type="text" name="username" placeholder="Card Owner Name" required class="form-control "> </div>
+                                    </label> <input type="text" name="username" placeholder="Nombre del propietario" required class="form-control "> </div>
                                 <div class="form-group"> <label for="cardNumber">
                                         <h6>Numero Tarjeta</h6>
                                     </label>
@@ -71,33 +72,34 @@
                     </div> <!-- End -->
                     <!-- Paypal info -->
                     <div id="paypal" class="tab-pane fade pt-3">
-                        <h4 class="pb-2">Movis Disponibles <?php echo e($movis); ?></h4>
-                        <h4 class="pb-2">Total a Pagar <?php echo e($movisPago); ?></h4>
-                        <p> <button type="button" class="btn btn-primary "><i class="fab fa-paypal mr-2"></i> Log into my Paypal</button> </p>
-                        <p class="text-muted"> Note: Al hacer click en confirmar pago se estara haciendo efectivo el pago del producto descontandolo de tus movis disponibles. </p>
+                        <form>
+                            <h4 class="pb-2" style="background-color: rgb(200, 251, 255);">Movis Disponibles: <?php echo e($movisUser); ?></h4>
+                            <h4 class="pb-2">   Total a Pagar:       <?php echo e($totalMovis); ?> movis</h4>
+                            <h4 class="pb-2">   -20% de descuento* = <?php echo e($totalModisDesc); ?> movis</h4>
+                            <p class="text-muted">*cada compra que realices con movis tiene un 20% de descuento </p>
+                            <input name="tipo"  value="movis" hidden/>
+                            <?php if($movisUser>=$totalModisDesc): ?>
+                                <p> <button type="submmit" class="btn btn-primary "><i class="fab fa-paypal mr-2"></i> Confirmar</button> </p>
+                                <p class="text-muted"> Nota: Al hacer click en confirmar pago se estara haciendo efectivo el pago del producto descontandolo de tus movis disponibles. </p>
+
+                            <?php else: ?>
+                            <div class="alert alert-danger" role="alert">
+                                No tienes suficientes movis para completar la compra
+                                <button type="button"  class="btn btn-info"  href="/MOVI-Proyecto/public/home" >COMPRA MOVIS</button>
+                                <p class="text-muted" > Si despues de hacer tu compra no aumentan tus movis recarga la pagina </p>
+
+                            </div>
+                            <?php endif; ?>
+                        </form>    
                     </div> <!-- End -->
                     <!-- bank transfer info -->
                     <div id="net-banking" class="tab-pane fade pt-3">
-                        <div class="form-group "> <label for="Select Your Bank">
-                                <h6>Select your Bank</h6>
-                            </label> <select class="form-control" id="ccmonth">
-                                <option value="" selected disabled>--Please select your Bank--</option>
-                                <option>Bank 1</option>
-                                <option>Bank 2</option>
-                                <option>Bank 3</option>
-                                <option>Bank 4</option>
-                                <option>Bank 5</option>
-                                <option>Bank 6</option>
-                                <option>Bank 7</option>
-                                <option>Bank 8</option>
-                                <option>Bank 9</option>
-                                <option>Bank 10</option>
-                            </select> </div>
-                        <div class="form-group">
-                            <p> <button type="button" class="btn btn-primary "><i class="fas fa-mobile-alt mr-2"></i> Proceed Payment</button> </p>
-                        </div>
-                        <p class="text-muted">Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
-                    </div> <!-- End -->
+                        <h1>Comprar Movis</h1>
+                        <atarget="_blank"><span class="fab fa-question-circle"></span></a>
+                        <button type="button"  class="btn btn-info"  href="/MOVI-Proyecto/public/home" >COMPRA MOVIS</button>
+                        <p class="text-muted"> Si despues de hacer tu compra no aumentan tus movis recarga la pagina </p>
+
+                     </div> <!-- End -->
                     <!-- End -->
                 </div>
             </div>

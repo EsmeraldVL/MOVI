@@ -69,7 +69,11 @@ class BooksController extends Controller
         $libro->price= $request->input('price');
         $libro->PDF=  $PDFPath;
         $libro->image= $filePath;
-
+        if($request->has('isBasic')){
+            $libro->isBasicSubscription= false;
+        }else{
+            $libro->isBasicSubscription= true;
+        }
         $categoria=$request->input('category');
         $Book_Category=new Book_Category();
         $Book_Category->idCategoria= $categoria;
@@ -77,12 +81,13 @@ class BooksController extends Controller
         $idL= $id->id+1;
         $Book_Category->idArticulo=$idL;
         $Book_Category->isBook= true;
-
         $libro->save();
         $Book_Category->save();
+        $categoriaL= Category::find($categoria);
         $request->session()->flash('alert-success', 'Libro guardado correctamente!');
         $Book=Book::find($idL);
-        return view('Library/bookPage')->with('Book',$Book);
+        return view('Library/bookPage')->with('Book',$Book)
+        ->with('categoria', $categoriaL);
     }
 
     /**
@@ -94,11 +99,11 @@ class BooksController extends Controller
     public function show($id)
     {
         $Book=Book::find($id);
-        $categoria=Book_Category::select('idCategory')
-        ->whereColumn([
-            ['idArticulo', '=',$id ],
-            ['isBook', '=', '1'],
-        ])->get();
+        $categoriaId=Book_Category::select('idCategoria')
+        ->where('idArticulo', '=',$id)
+        ->where('isBook', '=', 1)
+        ->first();
+        $categoria=Category::find($categoriaId)->first();
         return view('Library/bookPage')
             ->with('Book',$Book)
             ->with('categoria',$categoria);
@@ -127,7 +132,7 @@ class BooksController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        
         //
     }
 
